@@ -14,14 +14,11 @@
             <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
         </div>
 
-        <div class="w-full max-w-md relative">
+        <div class="w-full max-w-md relative z-10">
             <!-- Card -->
             <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden transform transition-all hover:scale-[1.01]">
                 <!-- Header -->
-                <div class="px-8 pt-8 pb-6">
-                    <div class="flex justify-center mb-2">
-                        
-                    </div>
+                <div class="px-5 pt-5 ">
                     <h1 class="text-3xl font-bold text-center text-gray-900 dark:text-white">
                         Create Account
                     </h1>
@@ -31,7 +28,7 @@
                 </div>
 
                 <!-- Form Section -->
-                <div class="p-8 pt-0">
+                <div class="px-8 pt-0">
                     @if ($errors->any())
                         <div class="mb-6 bg-red-50 dark:bg-red-900/30 rounded-lg p-4">
                             <div class="flex">
@@ -52,70 +49,57 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('register') }}" class="space-y-6">
+                    <form method="POST" action="{{ route('register') }}" class="space-y-6" enctype="multipart/form-data">
                         @csrf
+
                         <!-- Name Field -->
                         <div class="space-y-2">
-                            <label for="name" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Full Name
-                            </label>
+                            <label for="name" class="text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
                             <div class="relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                </div>
                                 <input
                                     type="text"
                                     name="name"
                                     id="name"
                                     value="{{ old('name') }}"
-                                    class="block w-full pl-10 pr-4 py-3 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
+                                    class="block w-full pl-10 pr-4 py-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
                                     placeholder="John Doe"
                                     required
                                 />
                             </div>
                         </div>
 
+                       
+
                         <!-- Email Field -->
-                        <div class="space-y-2">
-                            <label for="email" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Email Address
-                            </label>
+                        <div class="space-y-2 mt-0">
+                            <label for="email" class="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
                             <div class="relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
                                 <input
                                     type="email"
                                     name="email"
                                     id="email"
                                     value="{{ old('email') }}"
-                                    class="block w-full pl-10 pr-4 py-3 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
+                                    class="block w-full pl-10 pr-4 py-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
                                     placeholder="you@example.com"
                                     required
                                 />
                             </div>
                         </div>
+                         <!-- Profile Image -->
+                         <div class="space-y-2">
+                            <label for="image" class="text-sm font-medium text-gray-700 dark:text-gray-300">Profile Image</label>
+                            <input type="file" name="image" id="image" accept="image/*" class="block w-full text-sm text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white" />
+                        </div>
 
                         <!-- Password Field -->
                         <div class="space-y-2">
-                            <label for="password" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Password
-                            </label>
+                            <label for="password" class="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
                             <div class="relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                </div>
                                 <input
                                     type="password"
                                     name="password"
                                     id="password"
-                                    class="block w-full pl-10 pr-4 py-3 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
+                                    class="block w-full pl-10 pr-4 py-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -124,20 +108,13 @@
 
                         <!-- Confirm Password Field -->
                         <div class="space-y-2">
-                            <label for="password_confirmation" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Confirm Password
-                            </label>
+                            <label for="password_confirmation" class="text-sm font-medium text-gray-700 dark:text-gray-300">Confirm Password</label>
                             <div class="relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                </div>
                                 <input
                                     type="password"
                                     name="password_confirmation"
                                     id="password_confirmation"
-                                    class="block w-full pl-10 pr-4 py-3 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
+                                    class="block w-full pl-10 pr-4 py-2 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -155,7 +132,7 @@
                 </div>
 
                 <!-- Footer -->
-                <div class="px-8 py-6 bg-gray-50 dark:bg-gray-900/50 border-t dark:border-gray-700">
+                <div class="px-5 py-3 bg-gray-50 dark:bg-gray-900/50 border-t dark:border-gray-700">
                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                         Already have an account?
                         <a href="{{ route('login') }}" class="font-medium text-black dark:text-white hover:text-gray-900 dark:hover:text-gray-100">

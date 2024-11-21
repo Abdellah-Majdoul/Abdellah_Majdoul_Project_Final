@@ -60,7 +60,7 @@
                 <!-- User Menu -->
                 <div class="flex items-center justify-between px-4 py-4 border-t border-gray-200">
                     <div class="flex items-center min-w-0">
-                        <img class="w-10 h-10 rounded-full" src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}" alt="User avatar">
+                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/images/' .Auth::user()->image) }}" alt="User avatar">
                         <div class="ml-3">
                             <p class="text-sm font-medium text-gray-900 truncate">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
@@ -138,7 +138,7 @@
                                                 <dl>
                                                     <dt class="text-sm font-medium text-gray-500 truncate">Total Team Members</dt>
                                                     <dd class="flex items-baseline">
-                                                        <div class="text-2xl font-semibold text-gray-900">12</div>
+                                                         <div class="text-2xl font-semibold text-gray-900">12</div>
                                                     </dd>
                                                 </dl>
                                             </div>
@@ -213,31 +213,38 @@
 
                         <!-- Task Board -->
                         <div class="mt-8">
-                            <div class="flex items-center justify-between">
-                                <h2 class="text-lg font-medium text-gray-900">Task Board</h2>
-                                <div class="flex space-x-4">
-                                    <button id="openTaskModal" 
-                                        class="px-6 py-2 text-sm font-medium text-white bg-black rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 transition duration-200">
-                                        + Add Team
-                                    </button>
+                            <div class="flex items-center justify-between mb-4">
+                                <h2 class="text-2xl font-semibold text-gray-900">Task Board</h2>
+                                <div class="flex gap-5">
+                                    <div class="flex space-x-4">
+                                        <button id="openTaskModal" 
+                                            class="px-6 py-2 text-sm font-medium text-white bg-black rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 transition duration-300">
+                                            + Add Team
+                                        </button>
+                                    </div>
+                                    <div class="flex space-x-4">
+                                        <button  id="openTaskModal1"
+                                            class="px-6 py-2 text-sm font-medium text-white bg-black rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 transition duration-300">
+                                            + Add Task
+                                        </button>
+                                    </div>
                                 </div>
-                                
                             </div>
-
-                            <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                        
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                 <!-- To Do Column -->
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <h3 class="text-sm font-medium text-gray-900">To Do</h3>
-                                    <div class="mt-2 space-y-4">
+                                <div class="bg-white p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">To Do</h3>
+                                    <div class="space-y-4">
                                         <!-- Task Card -->
-                                        <div class="bg-white shadow rounded-lg p-4">
+                                        <div class="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-xl transition duration-200">
                                             <div class="flex items-center justify-between">
                                                 <p class="text-sm font-medium text-gray-900">Design System Update</p>
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Design</span>
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-200 text-blue-800">Design</span>
                                             </div>
                                             <p class="mt-2 text-sm text-gray-500">Update the design system with new components and documentation.</p>
                                             <div class="mt-4 flex items-center justify-between">
-                                                <div class="flex -space-x-2">
+                                                <div class="flex space-x-2">
                                                     <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=John+Doe" alt="">
                                                     <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=Jane+Smith" alt="">
                                                 </div>
@@ -246,20 +253,20 @@
                                         </div>
                                     </div>
                                 </div>
-
+                        
                                 <!-- In Progress Column -->
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <h3 class="text-sm font-medium text-gray-900">In Progress</h3>
-                                    <div class="mt-2 space-y-4">
+                                <div class="bg-white p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">In Progress</h3>
+                                    <div class="space-y-4">
                                         <!-- Task Card -->
-                                        <div class="bg-white shadow rounded-lg p-4">
+                                        <div class="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-xl transition duration-200">
                                             <div class="flex items-center justify-between">
                                                 <p class="text-sm font-medium text-gray-900">API Integration</p>
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Development</span>
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-200 text-yellow-800">Development</span>
                                             </div>
-                                            <p class="mt-2 text-sm text-gray-500">Integrate the new payment gateway API with existing system.</p>
+                                            <p class="mt-2 text-sm text-gray-500">Integrate the new payment gateway API with the existing system.</p>
                                             <div class="mt-4 flex items-center justify-between">
-                                                <div class="flex -space-x-2">
+                                                <div class="flex space-x-2">
                                                     <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=Mike+Johnson" alt="">
                                                 </div>
                                                 <span class="text-sm text-gray-500">Due tomorrow</span>
@@ -267,20 +274,20 @@
                                         </div>
                                     </div>
                                 </div>
-
+                        
                                 <!-- Review Column -->
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <h3 class="text-sm font-medium text-gray-900">Review</h3>
-                                    <div class="mt-2 space-y-4">
+                                <div class="bg-white p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Review</h3>
+                                    <div class="space-y-4">
                                         <!-- Task Card -->
-                                        <div class="bg-white shadow rounded-lg p-4">
+                                        <div class="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-xl transition duration-200">
                                             <div class="flex items-center justify-between">
                                                 <p class="text-sm font-medium text-gray-900">User Testing</p>
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">Testing</span>
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-200 text-purple-800">Testing</span>
                                             </div>
                                             <p class="mt-2 text-sm text-gray-500">Conduct user testing sessions for the new feature.</p>
                                             <div class="mt-4 flex items-center justify-between">
-                                                <div class="flex -space-x-2">
+                                                <div class="flex space-x-2">
                                                     <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=Sarah+Wilson" alt="">
                                                     <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=Tom+Brown" alt="">
                                                 </div>
@@ -289,20 +296,20 @@
                                         </div>
                                     </div>
                                 </div>
-
+                        
                                 <!-- Done Column -->
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <h3 class="text-sm font-medium text-gray-900">Done</h3>
-                                    <div class="mt-2 space-y-4">
+                                <div class="bg-white p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Done</h3>
+                                    <div class="space-y-4">
                                         <!-- Task Card -->
-                                        <div class="bg-white shadow rounded-lg p-4">
+                                        <div class="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-xl transition duration-200">
                                             <div class="flex items-center justify-between">
                                                 <p class="text-sm font-medium text-gray-900">Documentation</p>
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-200 text-green-800">Completed</span>
                                             </div>
                                             <p class="mt-2 text-sm text-gray-500">Write technical documentation for the new API endpoints.</p>
                                             <div class="mt-4 flex items-center justify-between">
-                                                <div class="flex -space-x-2">
+                                                <div class="flex space-x-2">
                                                     <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=Alex+Lee" alt="">
                                                 </div>
                                                 <span class="text-sm text-gray-500">Completed</span>
@@ -312,6 +319,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         @if(session('success'))
                         <div id="success-message" class="bg-green-500 text-white p-4 rounded-lg mb-4 animate__fadeIn">
                             {{ session('success') }}
@@ -327,42 +335,22 @@
                             <h2 class="text-lg font-medium text-gray-900">Recent Activity</h2>
                             <div class="mt-4 bg-white shadow rounded-lg">
                                 <ul class="divide-y divide-gray-200">
+                                    @foreach ($users as $user)
+                                        
                                     <li class="p-4">
                                         <div class="flex items-center space-x-4">
                                             <div class="flex-shrink-0">
-                                                <img class="h-8 w-8 rounded-full" src="https://ui-avatars.com/api/?name=John+Doe" alt="">
+                                                <img class="h-8 w-8 rounded-full" src="{{ asset('storage/images/'.$user->image) }}" alt="">
                                             </div>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-900">John Doe</p>
-                                                <p class="text-sm text-gray-500">Completed task "Update homepage design"</p>
+                                                <p class="text-sm font-medium text-gray-900">{{ $user->name }}</p>
+                                                <p class="text-sm text-gray-500">Create new account"</p>
                                             </div>
-                                            <div class="flex-shrink-0 text-sm text-gray-500">2h ago</div>
+                                            <div class="flex-shrink-0 text-sm text-gray-500">{{ $user->created_at->format('Y-m-d') }}</div>
                                         </div>
                                     </li>
-                                    <li class="p-4">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="flex-shrink-0">
-                                                <img class="h-8 w-8 rounded-full" src="https://ui-avatars.com/api/?name=Jane+Smith" alt="">
-                                            </div>
-                                            <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-900">Jane Smith</p>
-                                                <p class="text-sm text-gray-500">Added new task "Implement authentication"</p>
-                                            </div>
-                                            <div class="flex-shrink-0 text-sm text-gray-500">4h ago</div>
-                                        </div>
-                                    </li>
-                                    <li class="p-4">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="flex-shrink-0">
-                                                <img class="h-8 w-8 rounded-full" src="https://ui-avatars.com/api/?name=Mike+Johnson" alt="">
-                                            </div>
-                                            <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-900">Mike Johnson</p>
-                                                <p class="text-sm text-gray-500">Commented on "API Documentation"</p>
-                                            </div>
-                                            <div class="flex-shrink-0 text-sm text-gray-500">6h ago</div>
-                                        </div>
-                                    </li>
+                                    @endforeach
+                                  
                                 </ul>
                             </div>
                         </div>
@@ -372,7 +360,7 @@
         </div>
     </div>
 </body>
-<!-- Modal -->
+<!-- Modal  team-->
 <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
     <div class="modal-content p-6 w-full max-w-md bg-white rounded-lg shadow-xl transform transition-all">
         <div class="flex justify-between items-center mb-6">
@@ -385,7 +373,7 @@
             </button>
         </div>
 
-        <form method="POST" action="{{ route('task.store') }}">
+        <form method="POST" action="{{ route('teams.store') }}">
             @csrf
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Team Name</label>
@@ -406,33 +394,119 @@
         </form>
     </div>
 </div>
+<!-- Modal  task-->
+<div id="modal1" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
+    <div class="modal-content p-6 w-full max-w-lg bg-white rounded-lg shadow-xl transform transition-all">
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="text-2xl font-semibold text-gray-800">Create Task</h2>
+            <button id="closeModal1" class="text-gray-400 hover:text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <form method="POST" action="{{ route('task.store') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Task Name</label>
+                <input type="text" name="name" id="name"
+                    class="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                    placeholder="Enter task name" required>
+            </div>
+
+            <div class="">
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Task Description</label>
+                <textarea name="description" id="description"
+                    class="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                    placeholder="Describe your task" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="start" class="block text-sm font-medium text-gray-700 mb-1">Task Start</label>
+                <input type="datetime-local" name="start" id="start"
+                    class="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="end" class="block text-sm font-medium text-gray-700 mb-1">Task End</label>
+                <input type="datetime-local" name="end" id="end"
+                    class="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="priority" class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                <select name="priority" id="priority"
+                    class="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+
+            <button type="submit"
+                class="w-full py-2 text-white bg-black rounded-lg hover:bg-gray-900 transition duration-200">
+                Create Task
+            </button>
+        </form>
+    </div>
+</div>
 
 <script>
+    // Modal toggle 1
+const openModalBtn = document.getElementById('openTaskModal');
+const closeModalBtn = document.getElementById('closeModal');
+const modal = document.getElementById('modal');
 
-    // Modal toggle
-    const openModalBtn = document.getElementById('openTaskModal');
-    const closeModalBtn = document.getElementById('closeModal');
-    const modal = document.getElementById('modal');
-    
-    if (openModalBtn && closeModalBtn && modal) {
-        openModalBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        });
-    
-        closeModalBtn.addEventListener('click', () => {
+if (openModalBtn && closeModalBtn && modal) {
+    openModalBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    });
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-        });
-    
-        // Close modal if clicked outside
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        });
-    }
+        }
+    });
+}
+
+// Modal toggle for Task Creation
+const openModalBtn1 = document.getElementById('openTaskModal1');
+const closeModalBtn1 = document.getElementById('closeModal1');
+const modal1 = document.getElementById('modal1');
+
+if (openModalBtn1 && closeModalBtn1 && modal1) {
+    openModalBtn1.addEventListener('click', () => {
+        modal1.classList.remove('hidden');
+        modal1.classList.add('flex');
+    });
+
+    closeModalBtn1.addEventListener('click', () => {
+        modal1.classList.add('hidden');
+        modal1.classList.remove('flex');
+    });
+
+    modal1.addEventListener('click', (event) => {
+        if (event.target === modal1) {
+            modal1.classList.add('hidden');
+            modal1.classList.remove('flex');
+        }
+    });
+}
+
+
+
+
     
     
         setTimeout(function() {
@@ -445,6 +519,6 @@
             if (errorMessage) {
                 errorMessage.style.display = 'none';
             }
-        }, 5000); // 5000ms = 5 seconds
+        }, 5000); 
 </script>
 </html>

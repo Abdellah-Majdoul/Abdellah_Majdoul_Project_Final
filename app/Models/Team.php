@@ -20,4 +20,9 @@ class Team extends Model
         return $this->belongsToMany(User::class, 'team_members')
         ->withPivot('role');
     }
+    public function getLengthAttribute()
+{
+    return $this->members->count(); // Assuming 'members' is a relationship
+}
+
 }

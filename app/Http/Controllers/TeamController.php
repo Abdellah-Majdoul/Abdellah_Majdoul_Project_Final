@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Stripe\Checkout\Session;
+use Stripe\Price;
+use Stripe\Stripe;
+use Termwind\Components\Dd;
 
 class TeamController extends Controller
 {
@@ -14,8 +19,9 @@ class TeamController extends Controller
     public function index()
     {
         //
+        $users=User::all();
         $teams=Team::all();
-        return view("Task.createTeam",compact("teams"));
+        return view("Task.createTeam",compact("teams","users"));
     }
 
     /**
@@ -24,8 +30,8 @@ class TeamController extends Controller
     public function create()
     {
         //
-        $teams=Team::all();
-
+        // $teams=Team::all();
+        $teams = Team::where('owner_id', Auth::id())->get();
         return view("Team.Teams",compact("teams"));
        
     }
@@ -38,11 +44,11 @@ class TeamController extends Controller
         //
         $user = auth()->user();
 
-        // Check if the user has reached the team limit
-        if ($user->teamCount() >= 5) {
-            return redirect()->route('createTeam')
-            ->with('error', 'You have reached the maximum limit of 5 teams. Please upgrade to add more teams.');
+        if (!$user->haspayment() && $user->teamCount() >= 5) {
+            return redirect()->route('payment')
+                ->with('error', 'You have reached the maximum limit of 5 teams. Please upgrade to add more teams.');
         }
+        
         $request->validate([
             "name"=>"required",
             "description"=>"required",
@@ -54,7 +60,6 @@ class TeamController extends Controller
             "owner_id"=>$user->id
         ]);
         $team->members()->attach($user,["role"=>"Owner"]);
-        // dd("succes");
         return back()->with('success', 'Team added successfully!');    }
 
     /**
@@ -70,6 +75,7 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
+
         //
     }
 
@@ -88,4 +94,38 @@ class TeamController extends Controller
     {
         //
     }
+    public function checkOut()
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $user = auth()->user();
+        $prices = Price::all();
+
+        $checkout_session = Session::create([
+            'customer' => $user->stripe_customer_id, // Use the user's Stripe customer ID
+            'line_items' => [[
+                'price' => $prices->data[0]->id,
+                'quantity' => 1,
+            ]],
+            'mode' => 'subscription',
+            'success_url' => route("payment.succes"),
+            'cancel_url' => route("createTeam"),
+        ]);
+
+        return redirect()->away($checkout_session->url);
+
+    }
+
+    public function payment()
+    {
+        $user = User::where("id",auth()->user()->id)->first();
+        if ($user) {
+            // dd("wwwwwwwwwwwwwww");
+            $user->status = "active";
+            $user->save();
+        }
+    
+        return redirect()->route("createTeam")->with('success', 'Your payment was successful, and your status is now active.');
+    }
+    
 }

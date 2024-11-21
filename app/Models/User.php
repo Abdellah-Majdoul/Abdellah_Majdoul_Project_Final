@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
+        "status"
     ];
 
     /**
@@ -53,5 +55,9 @@ class User extends Authenticatable
     public function teamCount()
     {
         return $this->teams()->count();
+    }
+
+    public function haspayment(){
+        return $this->status=== "active";
     }
 }
