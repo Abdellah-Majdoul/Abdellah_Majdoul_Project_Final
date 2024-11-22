@@ -10,7 +10,7 @@ class Task extends Model
 
     protected $fillable=[
         "user_id",
-        // "team_id",
+        "team_id",
         "name",
         "description",
         "start",
@@ -21,5 +21,8 @@ class Task extends Model
     ];
     public function userrs(){
         return $this->belongsTo(User::class);
+    }
+    public function team(){
+        return $this->belongsTo(Team::class);
     }
 }

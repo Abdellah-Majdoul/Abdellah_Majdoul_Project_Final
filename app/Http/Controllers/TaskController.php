@@ -39,6 +39,7 @@ class TaskController extends Controller
             "start"=>"required",
             "end"=>"required",
             "priority"=>"required",  
+            "team_id"=>"nullable",  
         ]);
         $user = auth()->user();
         $task=Task::create([
@@ -47,7 +48,9 @@ class TaskController extends Controller
             "start"=>$request->start,
             "end"=>$request->end,
             "priority"=>$request->priority,
-            "user_id"=>$user->id
+            "user_id"=>$user->id,
+            "team_id"=>$request->team_id ?? null
+
         ]);
         // dd($task);
         return redirect()->back()->with('task', 'Task created successfully!');

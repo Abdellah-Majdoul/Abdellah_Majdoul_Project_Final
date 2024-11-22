@@ -24,5 +24,8 @@ class Team extends Model
 {
     return $this->members->count(); // Assuming 'members' is a relationship
 }
+public function tasks(){
+    return $this->hasMany(Task::class);
+}
 
 }
