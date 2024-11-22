@@ -60,4 +60,7 @@ class User extends Authenticatable
     public function haspayment(){
         return $this->status=== "active";
     }
-}
+    public function task(){
+        return $this->hasMany(Task::class);
+    }
+    }

@@ -62,11 +62,18 @@
                                     <span class="text-sm font-medium text-gray-700">{{ $team->owner->name }}</span>
                                 </div>
                             </div>
-                            <div class="px-6 pb-6 flex justify-end">
+                            <div class="px-6 pb-6 flex justify-end gap-4">
                                 <button 
                                     class="bg-black text-white text-sm font-medium rounded-md px-4 py-2 hover:bg-gray-900 transition"
-                                    onclick="openModal('modal-{{ $team->id }}')">Invite Members</button>
+                                    onclick="openModal('modal-{{ $team->id }}')">
+                                    Invite Members
+                                </button>
+                                <button 
+                                    class="bg-gray-200 text-gray-700 text-sm font-medium rounded-md px-4 py-2 hover:bg-gray-300 transition">
+                                    Add Task
+                                </button>
                             </div>
+                            
                         </div>
 
                         <!-- Confirmation Modal -->

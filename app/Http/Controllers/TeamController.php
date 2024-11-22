@@ -19,6 +19,7 @@ class TeamController extends Controller
     public function index()
     {
         //
+        
         $users=User::all();
         $teams=Team::all();
         return view("Task.createTeam",compact("teams","users"));

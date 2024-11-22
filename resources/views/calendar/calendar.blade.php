@@ -8,6 +8,55 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Add Custom Styles for Black and Blue Colors -->
+    <style>
+        /* Calendar Background Color */
+        #calendar {
+            background-color: #181717; /* Black background */
+            color: #fcfeff; /* Blue text */
+        }
+
+        /* Header Background and Text Color */
+        .fc-toolbar {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Header button color */
+        .fc-button {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .fc-button:hover {
+            background-color: #131314;
+            color: #000000;
+        }
+
+        /* Date cells color */
+        .fc-daygrid-day {
+            background-color: #000000;
+            color: #253442;
+        }
+
+        /* Event Color */
+        .fc-event {
+            background-color: #08223b; /* Blue background */
+            color: #000000; /* Black text */
+        }
+
+        .fc-event:hover {
+            background-color: #000000;
+            color: #213344;
+        }
+
+        /* Date cell hover effect */
+        .fc-daygrid-day:hover {
+            background-color: #273038;
+            color: #000000;
+        }
+    </style>
 </head>
 <body>
     <div>
@@ -33,10 +82,10 @@
                     </form>
         
                     <!-- Calendar Section -->
-                    <div class="w-full bg-white rounded-3xl shadow-xl p-6">
-                        <div class="flex justify-between items-center mb-6">
-                            <h1 class="text-4xl font-semibold text-gray-800">Calendar</h1>
-                            <button id="createEventBtn" @click="showModal = true" class="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-900 transition duration-200">
+                    <div class="w-full bg-white rounded-3xl shadow-xl py-6">
+                        <div class="flex gap-[29rem] items-center mb-6">
+                            <h1 class="text-4xl font-semibold text-gray-800 px-6">Calendar</h1>
+                            <button id="createEventBtn" @click="showModal = true" class="px-2 py-2 bg-black text-white rounded-lg hover:bg-gray-900 transition duration-200">
                                 Create Event
                             </button>
                         </div>
@@ -91,19 +140,19 @@
         
                     var calendar = new FullCalendar.Calendar(myCalendar, {
                         headerToolbar: {
-                            left: 'prev,next,dayGridMonth,timeGridWeek,timeGridDay',
+                            left: 'dayGridMonth,timeGridWeek,timeGridDay',
                             center: 'title',
                             right: 'listMonth,listWeek,listDay'
                         },
                         views: {
                             listDay: {
-                                buttonText: 'Day Events',
+                                buttonText: 'Day ',
                             },
                             listWeek: {
-                                buttonText: 'Week Events'
+                                buttonText: 'Week '
                             },
                             listMonth: {
-                                buttonText: 'Month Events'
+                                buttonText: 'Month '
                             },
                             timeGridWeek: {
                                 buttonText: 'Week',
