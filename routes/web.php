@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CalendarteamController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -26,9 +27,15 @@ Route::get("/createTeam",[TeamController::class,"index"])->name("createTeam");
 Route::get("/teams",[TeamController::class,"create"]);
 Route::post("/teams/store",[TeamController::class,"store"])->name("teams.store");
 
+
+// calendar task
 Route::resource("calendar" , CalendarController::class);
 Route::put("/calendar/update/{calendar}" , [CalendarController::class , "update"])->name("updateCalendar");
 Route::delete("/calendar/delete/{calendar}" , [CalendarController::class , "destroy"])->name("deleteCalendar");
+//calendar team
+Route::resource("calendar/team", CalendarteamController::class);
+Route::put("/calendar/update/{calendarteam}", [CalendarteamController::class, "update"])->name("updateCalendar");
+Route::delete("/calendar/delete/{calendarteam}", [CalendarteamController::class, "destroy"])->name("deleteCalendar");
 
 Route::get('/payment', [PaymentController::class, 'show'])->name('payment');
 Route::post('/invite/store/{teamId}',[InvitationController::class,"store"])->name("invitation.store");

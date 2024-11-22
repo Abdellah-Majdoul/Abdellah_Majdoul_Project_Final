@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calendar;
+use App\Models\Task;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,9 @@ class CalendarController extends Controller
     {
         //
         return view("calendar.calendar");
-    }
+    } 
+ 
+    
 
     /**
      * Show the form for creating a new resource.
@@ -26,27 +30,29 @@ class CalendarController extends Controller
     public function create()
     {
         //
-
-        $events = Calendar::all();
-
-        $events = $events->map(function ($e) {
-            $nameUser=User::where("id",$e->user_id)->first();
-            
-            return [
-                "id" => $e->id,
-                "start" => $e->start,
-                "end" => $e->end,
-                "owner"=> $e->user_id,
-                "color" => "#1e2b37",
-                "passed" => false,
-                "title" =>$nameUser->name,
-            ];
-        });
-
-        return response()->json([
-            "events" => $events
-        ]);
+  
+    $tasks = Task::all();
+    $events = $tasks->map(function ($task) {
+        $nameUser = User::find($task->user_id); // Fetch user by ID
+    
+        return [
+            "id" => $task->id,
+            "start" => $task->start,
+            "end" => $task->end,
+            "owner" => $task->user_id,
+            "color" => "#1e2b37",
+            "passed" => false,
+            "title" => $nameUser ? $nameUser->name : "Unknown User", // Handle cases where the user might not exist
+        ];
+    });
+    
+    return response()->json([
+        "events" => $events
+    ]);
+    
     }
+  
+    
 
     /**
      * Store a newly created resource in storage.
@@ -54,6 +60,8 @@ class CalendarController extends Controller
     public function store(Request $request)
     {
         //
+       
+
         $request->validate([
             "start" => "required",
             "end" => "required"
