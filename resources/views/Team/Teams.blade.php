@@ -113,7 +113,7 @@
                                     <button 
                                         class="flex items-center justify-center text-gray-500 hover:text-black focus:outline-none transition-colors duration-200"
                                         >
-                                        <i class="bi bi-arrow-right-circle-fill text-2xl"></i>
+                                        <a href="{{ route('teams.show' ,$team->id) }}"><i class="bi bi-arrow-right-circle-fill text-2xl" ></i></a>
                                     </button>
                                 </div>
                                 <p class="text-sm text-gray-500 mb-4 line-clamp-2">{{ $team->description }}</p>

@@ -40,4 +40,6 @@ Route::get('/payment/succes', [TeamController::class, 'payment'])->name('payment
 Route::post("/task/store",[TaskController::class,"store"])->name("task.store");
 Route::delete("/task/destroy/{task}",[TaskController::class,"destroy"])->name("tasks.destroy");
 Route::get("/tasks",[TaskController::class,"index"])->name("showTasks");
+
+Route::get("/teams/show/{team}",[TeamController::class,"show"])->name("teams.show");
 require __DIR__.'/auth.php';
