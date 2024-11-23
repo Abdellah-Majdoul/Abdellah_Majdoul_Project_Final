@@ -42,7 +42,7 @@
                         </svg>
                         Calendar
                     </a>
-                    <a href="calendar/team" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white group">
+                    <a href="calendarr" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white group">
                         <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
@@ -224,65 +224,110 @@
                         
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                                 <!-- To Do Column -->
-                                <div class="bg-gradient-to-b from-blue-300 to-blue-500 p-4 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                                    <h3 class="text-lg font-semibold text-white mb-4">To Do</h3>
-                                    <div class="space-y-4">
+                                    
+                                <div class="bg-gradient-to-b from-blue-300 to-blue-500 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                                    <h3 class="text-lg font-semibold text-white mb-6">To Do</h3>
+                                
+                                    @foreach ($tasks as $task)
                                         <!-- Task Card -->
-                                        <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+                                        <div class="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition duration-200 space-y-2 mb-4">
                                             <div class="flex items-center justify-between">
-                                                <p class="text-sm font-medium text-gray-900">Design System Update</p>
-                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Design</span>
+                                                <!-- Task Name -->
+                                                <p class="text-sm font-medium text-gray-900">{{ $task->name }}</p>
+                                                <!-- Tag -->
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    {{ $task->status }}
+                                                </span>
                                             </div>
-                                            <p class="mt-2 text-sm text-gray-500">Update the design system with new components and documentation.</p>
-                                            <div class="mt-4 flex items-center justify-between">
-                                                <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=John+Doe" alt="">
-                                                <span class="text-sm text-gray-500">Due in 3 days</span>
+                                            <!-- Task Description -->
+                                            <p class="text-sm text-gray-500">{{ $task->description }}</p>
+                                            <!-- Priority -->
+                                            <div class="flex items-center justify-between text-sm text-gray-500 mt-2">
+                                                <span>Priority: {{ $task->priority }}</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+                                
+                                    @if ($tasks->isEmpty())
+                                        <!-- No Tasks Message -->
+                                        <p class="text-center text-white mt-4">No tasks available!</p>
+                                    @endif
                                 </div>
+                                
                         
-                                <!-- In Progress Column -->
-                                <div class="bg-gradient-to-b from-yellow-300 to-yellow-500 p-4 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                                    <h3 class="text-lg font-semibold text-white mb-4">In Progress</h3>
-                                    <div class="space-y-4">
-                                        <!-- Task Card -->
-                                        <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
-                                            <div class="flex items-center justify-between">
-                                                <p class="text-sm font-medium text-gray-900">API Integration</p>
-                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Development</span>
-                                            </div>
-                                            <p class="mt-2 text-sm text-gray-500">Integrate the new payment gateway API with the existing system.</p>
-                                            <div class="mt-4 flex items-center justify-between">
-                                                <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=Mike+Johnson" alt="">
-                                                <span class="text-sm text-gray-500">Due tomorrow</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        
-                               
-                        
-                                <!-- Done Column -->
-                                <div class="bg-gradient-to-b from-green-200 to-green-500 p-4 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                                    <h3 class="text-lg font-semibold text-white mb-4">Done</h3>
-                                    <div class="space-y-4">
-                                        <!-- Task Card -->
-                                        <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
-                                            <div class="flex items-center justify-between">
-                                                <p class="text-sm font-medium text-gray-900">Documentation</p>
-                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Completed</span>
-                                            </div>
-                                            <p class="mt-2 text-sm text-gray-500">Write technical documentation for the new API endpoints.</p>
-                                            <div class="mt-4 flex items-center justify-between">
-                                                <img class="h-6 w-6 rounded-full ring-2 ring-white" src="https://ui-avatars.com/api/?name=Alex+Lee" alt="">
-                                                <span class="text-sm text-gray-500">Completed</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+ <!-- In Progress Column -->
+ <div class="bg-gradient-to-b from-yellow-300 to-yellow-500 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+    <h3 class="text-lg font-semibold text-white mb-6">In Progress</h3>
+
+    @foreach ($taskspending as $taskpend)
+        <div class="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition duration-200 mb-4">
+            <!-- Task Header -->
+            <div class="flex items-center justify-between">
+                <!-- Task Name -->
+                <p class="text-sm font-medium text-gray-900 truncate">{{ $taskpend->name }}</p>
+                <!-- Status Badge -->
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                    {{ $taskpend->status }}
+                </span>
+            </div>
+            <!-- Task Description -->
+            <p class="mt-2 text-sm text-gray-500">
+                {{ $taskpend->description }}
+            </p>
+            <!-- Footer -->
+            <div class="mt-4 flex items-center justify-between">
+                <!-- Avatar -->
+                <!-- Priority -->
+                <span class="text-sm text-gray-500">
+                    Priority: {{ ucfirst($taskpend->priority) }}
+                </span>
+            </div>
+        </div>
+    @endforeach
+
+    <!-- No Tasks Fallback -->
+    @if ($taskspending->isEmpty())
+        <p class="text-center text-white text-sm mt-4">No tasks in progress.</p>
+    @endif
+</div>  
+
+<!-- Done Column -->
+<div class="bg-gradient-to-b from-green-300 to-green-500 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+    <h3 class="text-lg font-semibold text-white mb-6">Done</h3>
+
+    @foreach ($tasksDone as $taskD)
+        <div class="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition duration-200 mb-4">
+            <!-- Task Header -->
+            <div class="flex items-center justify-between">
+                <!-- Task Name -->
+                <p class="text-sm font-medium text-gray-900 truncate">{{ $taskD->name }}</p>
+                <!-- Status Badge -->
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Completed
+                </span>
+            </div>
+            <!-- Task Description -->
+            <p class="mt-2 text-sm text-gray-500">
+                {{ $taskD->description }}
+            </p>
+            <!-- Footer -->
+            <div class="mt-4 flex items-center justify-between">
+                <!-- Avatar -->
+
+                <!-- Priority -->
+                <span class="text-sm text-gray-500">
+                    Priority: {{ ucfirst($taskD->priority) }}
+                </span>
+            </div>
+        </div>
+    @endforeach
+
+    <!-- No Tasks Fallback -->
+    @if ($tasksDone->isEmpty())
+        <p class="text-center text-white text-sm mt-4">No completed tasks.</p>
+    @endif
+</div>
+
                         
                         @if(session('task'))
                         <div id="task-message" class="bg-green-500 text-white p-4 rounded-lg mb-4 animate__fadeIn">

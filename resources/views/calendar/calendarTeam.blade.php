@@ -116,6 +116,7 @@
                                     <button type="submit" class="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-900 transition duration-200">Save Event</button>
                                     <button type="button" @click="showModal = false" class="ml-2 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-200">Cancel</button>
                                 </div>
+                               
                             </form>
                         </div>
                     </div>
@@ -125,7 +126,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', async function () {
                     let response = await axios.get("/calendar/create")
-                    let formattedTeams = response.data.teams
+                    let formattedTeams = response.data.formattedTeams
         
                     let nowDate = new Date()
                     let day = nowDate.getDate()
@@ -142,25 +143,97 @@
                         headerToolbar: {
                             left: 'dayGridMonth,timeGridWeek,timeGridDay',
                             center: 'title',
-                            right: 'today prev,next'
+                            right: 'listMonth,listWeek,listDay'
                         },
-                        initialView: 'timeGridWeek',
-                        events: formattedTeams,
-                        eventClick: function(info) {
-                            let eventId = info.event.extendedProps.id;
+                        views: {
+                            listDay: {
+                                buttonText: 'Day ',
+                            },
+                            listWeek: {
+                                buttonText: 'Week '
+                            },
+                            listMonth: {
+                                buttonText: 'Month '
+                            },
+                            timeGridWeek: {
+                                buttonText: 'Week',
+                            },
+                            timeGridDay: {
+                                buttonText: "Day",
+                            },
+                            dayGridMonth: {
+                                buttonText: "Month",
+                            },
+                        },
+                        initialView: "timeGridWeek",
+                        slotMinTime: "09:00:00",
+                        slotMaxTime: "19:00:00",
+                        nowIndicator: true,
+                        selectable: true,
+                        selectMirror: true,
+                        selectOverlap: false,
+                        weekends: true,
+                        editable: true,
+                        droppable: true,
+                        formattedTeams: formattedTeams,
+                        eventDrop: (info) => {
+                            updateEvent(info)
+                        },
+                        eventResize: (info) => {
+                            updateEvent(info)
+                        },
+                        eventClick: (info) => {
+                            let eventId = info.event._def.publicId
                             if (validateOwner(info)) {
-                                deleteEventForm.action = `/calendar/delete/${eventId}`;
-                                deleteEventForm.submit();
+                                deleteEventForm.action = `/calendar/delete/${eventId}`
+                                deleteEventBtn.click()
                             }
-                        }
+                        },
+                        selectAllow: (info) => {
+                            return info.start >= nowDate;
+                        },
+                        select: (info) => {
+                            console.log(info);
+                            if (info.end.getDate() - info.start.getDate() > 0 && !info.allDay) {
+                                return
+                            }
+                            if (info.allDay) {
+                                start.value = info.startStr + " 09:00:00"
+                                end.value = info.startStr + " 19:00:00"
+                            } else {
+                                start.value = info.startStr.slice(0, info.startStr.length - 6)
+                                end.value = info.endStr.slice(0, info.endStr.length - 6)
+                            }
+                            submitEvent.click()
+                        },
                     });
         
                     calendar.render();
         
+                    function updateEvent(info) {
+                        let eventInfo = info.event._def
+                        let eventTime = info.event._instance.range
+                        if (eventTime.start > nowDate && validateOwner(info)) {
+                            function formattedDate(time) {
+                                let date = new Date(time);
+                                return date.toISOString().slice(0, 19);
+                            }
+                            updatedStart.value = formattedDate(eventTime.start)
+                            updatedEnd.value = formattedDate(eventTime.end)
+        
+                            updateForm.action = `/calendar/update/${eventInfo.publicId}`
+                            submitUpdate.click()
+                        } else {
+                            window.location.reload()
+                        }
+                    };
+        
                     function validateOwner(info) {
-                        return info.event.extendedProps.owner === {{ Auth::user()->id }};
+                        let owner = info.event._def.extendedProps.owner
+                        let authUser = `{{ Auth::user()->id }}`
+                        return owner == authUser
                     }
-                });
+                })
             </script>
         </div>
     </div>

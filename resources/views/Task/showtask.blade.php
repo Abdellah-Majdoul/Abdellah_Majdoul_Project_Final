@@ -47,13 +47,26 @@
 
                             <!-- Status -->
                             <td class="py-4 px-6">
-                                <span class="px-3 py-1 rounded-full text-sm font-medium 
-                                    @if($Task->status === 'Pending') bg-red-200 text-red-800 
-                                    @elseif($Task->status === 'In_progress') bg-yellow-200 text-yellow-800 
-                                    @else bg-green-200 text-green-800 @endif">
-                                    {{ $Task->status }}
-                                </span>
+                                <form id="status-form-{{ $Task->id }}" action="{{ route('task.update', $Task->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT') <!-- Ensure the HTTP method is PUT for updating -->
+                                    <select 
+                                        name="status" 
+                                        class="px-3 py-1 rounded-full text-sm font-medium border-0 bg-opacity-50 
+                                               @if($Task->status === 'Pending') bg-red-200 text-red-800 
+                                               @elseif($Task->status === 'In_progress') bg-yellow-200 text-yellow-800 
+                                               @else bg-green-200 text-green-800 @endif"
+                                        onchange="document.getElementById('status-form-{{ $Task->id }}').submit();">
+                                        <option value="Pending" @if($Task->status === 'Pending') selected @endif>Pending</option>
+                                        <option value="In_progress" @if($Task->status === 'In_progress') selected @endif>In Progress</option>
+                                        <option value="Done" @if($Task->status === 'Done') selected @endif>Done</option>
+                                    </select>
+                                </form>
+                                
+                                
                             </td>
+                            
+                            
 
                             <!-- Priority -->
                             <td class="py-4 px-6">

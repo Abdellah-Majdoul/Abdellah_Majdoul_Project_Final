@@ -75,10 +75,19 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'status' => 'required|in:Pending,In_progress,Done', 
+        ]);
+    
+        $task = Task::findOrFail($id); 
+        $task->status = $request->status; 
+        $task->save();
+    
+        return redirect()->back()->with('success', 'Task status updated successfully!');
     }
+    
 
     /**
      * Remove the specified resource from storage.

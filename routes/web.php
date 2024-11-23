@@ -33,7 +33,7 @@ Route::resource("calendar" , CalendarController::class);
 Route::put("/calendar/update/{calendar}" , [CalendarController::class , "update"])->name("updateCalendar");
 Route::delete("/calendar/delete/{calendar}" , [CalendarController::class , "destroy"])->name("deleteCalendar");
 //calendar team
-Route::resource("calendar/team", CalendarteamController::class);
+Route::resource("calendarr", CalendarteamController::class);
 Route::put("/calendar/update/{calendarteam}", [CalendarteamController::class, "update"])->name("updateCalendar");
 Route::delete("/calendar/delete/{calendarteam}", [CalendarteamController::class, "destroy"])->name("deleteCalendar");
 
@@ -44,7 +44,9 @@ Route::get("/invitation/{id}/rejected",[InvitationController::class,"reject"])->
 Route::get("/invitation/{id}/accept",[InvitationController::class,"accept"])->name("accept");
 Route::get('/checkout', [TeamController::class, 'checkOut'])->name('checkout');
 Route::get('/payment/succes', [TeamController::class, 'payment'])->name('payment.succes');
+// task
 Route::post("/task/store",[TaskController::class,"store"])->name("task.store");
+Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
 Route::delete("/task/destroy/{task}",[TaskController::class,"destroy"])->name("tasks.destroy");
 Route::get("/tasks",[TaskController::class,"index"])->name("showTasks");
 

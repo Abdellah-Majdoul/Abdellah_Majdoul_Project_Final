@@ -22,28 +22,35 @@ class CalendarteamController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        $teams = Team::all();
+{
+    // Eager load tasks and the owner for each team
+    $teams = Team::with(['tasks', 'userrs'])->get();
+    $formattedTeams = $teams->map(function ($team) {
+        return [
+            "id" => $team->id,
+            "start" => $team->start,
+            "end" => $team->end,
+            "owner" => $team->user_id,
+            "color" => "#1e2b37",
+            "passed" => false,
+            "title" => $team->user ? $team->user->name : "Unknown User",
+            "tasks" => $team->tasks->map(function ($task) {
+                return [
+                    "id" => $task->id,
+                    "title" => $task->title,
+                    "status" => $task->status,
+                    "description" => $task->description,
+                ];
+            }),
+        ];
+    });
 
-        $formattedTeams = $teams->map(function ($team) {
-            $nameUser = User::find($team->user_id); 
+    return response()->json([
+        "teams" => $formattedTeams
+    ]);
+}
 
-            return [
-                "id" => $team->id,
-                "start" => $team->start, 
-                "end" => $team->end,     
-                "owner" => $team->user_id,
-                "color" => "#1e2b37", 
-                "passed" => false,    
-                "title" => $nameUser ? $nameUser->name : "Unknown User", 
-            ];
-        });
-
-        return response()->json([
-            "teams" => $formattedTeams 
-        ]);
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,7 +23,16 @@ class TeamController extends Controller
         
         $users=User::all();
         $teams=Team::all();
-        return view("Task.createTeam",compact("teams","users"));
+        $tasks = Task::where('status', 'Pending')
+        ->where('user_id', auth()->id())
+        ->get();
+        $taskspending = Task::where('status', 'In_progress')
+        ->where('user_id', auth()->id())
+        ->get();
+        $tasksDone = Task::where('status', 'Done')
+        ->where('user_id', auth()->id())
+        ->get();
+        return view("Task.createTeam",compact("teams","users","tasks","taskspending","tasksDone"));
     }
 
     /**
