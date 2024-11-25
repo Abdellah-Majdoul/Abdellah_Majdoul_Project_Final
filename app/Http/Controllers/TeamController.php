@@ -20,13 +20,9 @@ class TeamController extends Controller
     public function index()
     {
         //
-        
-        $users=User::all();
-        $teams=Team::all();
-        // $teamsSS = Team::where("owner_id", auth()->user()->id); // Use get() to return a collection
-        // $teams2 = Team::whereIn("id", auth()->user()->teams->pluck("id")); // Use get() to return a collection
-        // // dd($teams2);
-        // $teams = $teamsSS->union($teams2)->paginate(4); // Merge the collections
+    $users=User::all();  
+
+         // Merge the collections
         $tasks = Task::where('status', 'Pending')
         ->where('user_id', auth()->id())
         ->get();
@@ -36,7 +32,7 @@ class TeamController extends Controller
         $tasksDone = Task::where('status', 'Done')
         ->where('user_id', auth()->id())
         ->get();
-        return view("Task.createTeam",compact("teams","users","tasks","taskspending","tasksDone"));
+        return view("Task.createTeam",compact("users","tasks","taskspending","tasksDone"));
     }
 
     /**
@@ -46,7 +42,10 @@ class TeamController extends Controller
     {
         //
         // $teams=Team::all();
-        $teams = Team::where('owner_id', Auth::id())->get();
+        $user = auth()->user();
+        $teamsSS = Team::where("owner_id", $user->id); 
+        $teams2 = Team::whereIn("id", $user->teams->pluck("id")); // Use get() to return a collection
+        $teams = $teamsSS->union($teams2)->paginate(4);
         return view("Team.Teams",compact("teams"));
        
     }
@@ -109,6 +108,8 @@ class TeamController extends Controller
     public function destroy(Team $team)
     {
         //
+        $team->delete();
+        return back();
     }
     public function checkOut()
     {

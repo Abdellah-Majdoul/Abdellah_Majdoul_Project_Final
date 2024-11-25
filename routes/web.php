@@ -51,4 +51,5 @@ Route::delete("/task/destroy/{task}",[TaskController::class,"destroy"])->name("t
 Route::get("/tasks",[TaskController::class,"index"])->name("showTasks");
 
 Route::get("/teams/show/{team}",[TeamController::class,"show"])->name("teams.show");
+Route::delete("/teams/destroy/{team}",[TeamController::class,"destroy"])->name("teams.destroy");
 require __DIR__.'/auth.php';

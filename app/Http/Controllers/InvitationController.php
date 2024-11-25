@@ -32,7 +32,6 @@ class InvitationController extends Controller
      */
     public function store(Request $request, Team $teamId)
     {
-        // Validate the input
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -41,30 +40,25 @@ class InvitationController extends Controller
         $team = Team::find($teamId->id);
         $user = auth()->user();
         // dd($team);
-        // Check if the team exists
         if (!$team) {
             return back()->with('error', 'User not found.');
         }
     
-        // Prevent the owner from inviting themselves
         if ($team->owner_id === $user->id && $request->email === $user->email) {
             return back()->with('error', "You can't invite yourself.");
         }
     
-        // Check if the email is already a member
         $existingMember = $team->members()->where('email', $request->email)->exists();
         if ($existingMember) {
             return back()->with('error', "This user is already a member of the team.");
         }
     
-        // Create an invitation
         $invitation = Invitation::create([
             'team_id' => $team->id,
             'email' => $request->email,
             'invited_by' => $user->id,
         ]);
     
-        // Send the invitation email
         Mail::to($request->email)->send(new InvitationMailer($invitation));
     
         return back()->with('success', 'Invitation sent successfully.');
