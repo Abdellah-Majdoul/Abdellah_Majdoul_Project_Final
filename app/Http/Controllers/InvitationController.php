@@ -30,35 +30,46 @@ class InvitationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request ,Team $teamId)
+    public function store(Request $request, Team $teamId)
     {
-        //
+        // Validate the input
         $request->validate([
-            'email'=>'required'
+            'email' => 'required|email',
         ]);
-        $team = Team::where('id', $teamId->id)->first();
+    
+        // Fetch the team
+        $team = Team::find($teamId->id);
         $user = auth()->user();
-        if ($team->owner_id !== $user->id) {
-            return back()->with('success', "you can't invite your self");
+        // dd($team);
+        // Check if the team exists
+        if (!$team) {
+            return back()->with('error', 'User not found.');
         }
-
+    
+        // Prevent the owner from inviting themselves
+        if ($team->owner_id === $user->id && $request->email === $user->email) {
+            return back()->with('error', "You can't invite yourself.");
+        }
+    
+        // Check if the email is already a member
         $existingMember = $team->members()->where('email', $request->email)->exists();
         if ($existingMember) {
-            return back()->with('error', "you can't invite your self");
-
+            return back()->with('error', "This user is already a member of the team.");
         }
-
-
+    
+        // Create an invitation
         $invitation = Invitation::create([
             'team_id' => $team->id,
             'email' => $request->email,
             'invited_by' => $user->id,
         ]);
+    
+        // Send the invitation email
         Mail::to($request->email)->send(new InvitationMailer($invitation));
-
-        return back()->with('success','message invitation');
-
+    
+        return back()->with('success', 'Invitation sent successfully.');
     }
+    
 
     /**
      * Display the specified resource.
