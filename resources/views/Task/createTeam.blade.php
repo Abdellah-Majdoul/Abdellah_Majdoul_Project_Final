@@ -23,7 +23,7 @@
                 </div>
         
                 <!-- Navigation -->
-                <nav class="flex-1 px-4 py-6 space-y-6 overflow-y-auto">
+                <nav class="flex-1 px-4 py-6 space-y-6 ">
                     <a href="/createTeam" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-gray-900 hover:bg-gray-800 hover:text-white group">
                         <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
@@ -43,9 +43,13 @@
                         Calendar
                     </a>
                     <a href="calendarr" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white group">
-                        <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-white" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Calendar Icon -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            <!-- People Group Icon -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 17a4 4 0 01-8 0 4 4 0 018 0zm6-4a4 4 0 110 8 4 4 0 010-8zm2-6a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
+                        
                         Calendar Teams
                     </a>
                     <a href="{{ route('showTasks') }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white group">
@@ -53,6 +57,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                         </svg>
                         Tasks
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white group">
+                        <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-white" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 16c0 .97-.78 1.75-1.75 1.75H6.66l-4.24 3.38V4.75C2.42 3.78 3.2 3 4.16 3h15.09C20.22 3 21 3.78 21 4.75v11.25z"/>
+                        </svg>
+                        
+                        Chat
                     </a>
                     <a href="/profile" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white group">
                         <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,7 +235,7 @@
                         
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                                 <!-- To Do Column -->
-                                    
+           
                                 <div class="bg-gradient-to-b from-blue-300 to-blue-500 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                                     <h3 class="text-lg font-semibold text-white mb-6">To Do</h3>
                                 

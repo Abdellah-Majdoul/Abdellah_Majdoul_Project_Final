@@ -23,6 +23,10 @@ class TeamController extends Controller
         
         $users=User::all();
         $teams=Team::all();
+        // $teamsSS = Team::where("owner_id", auth()->user()->id); // Use get() to return a collection
+        // $teams2 = Team::whereIn("id", auth()->user()->teams->pluck("id")); // Use get() to return a collection
+        // // dd($teams2);
+        // $teams = $teamsSS->union($teams2)->paginate(4); // Merge the collections
         $tasks = Task::where('status', 'Pending')
         ->where('user_id', auth()->id())
         ->get();
