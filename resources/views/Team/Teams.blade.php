@@ -90,8 +90,13 @@
                                     <img src="{{ asset('storage/images/' . $team->owner->image) }}"
                                         alt="{{ $team->owner->name }}"
                                         class="w-10 h-10 rounded-full ring-2 ring-gray-200 mr-3">
-                                    <span class="text-sm font-medium text-gray-700">{{ $team->owner->name }}</span>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-medium text-gray-700">{{ $team->owner->name }}</span>
+                                        <span class="text-sm text-gray-500">Members: {{ $team->members->count() }}</span>
+                                       
+                                                                            </div>
                                 </div>
+                                
                             </div>
                             
                             <div class="px-6 pb-6 flex justify-end gap-4">
