@@ -126,7 +126,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', async function () {
                     let response = await axios.get("/calendar/create")
-                    let formattedTeams = response.data.formattedTeams
+                    let events = response.data.events
         
                     let nowDate = new Date()
                     let day = nowDate.getDate()
@@ -175,7 +175,7 @@
                         weekends: true,
                         editable: true,
                         droppable: true,
-                        formattedTeams: formattedTeams,
+                        events: events,
                         eventDrop: (info) => {
                             updateEvent(info)
                         },
